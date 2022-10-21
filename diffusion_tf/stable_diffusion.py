@@ -40,13 +40,13 @@ class Text2Image:
     ):
         # Tokenize prompt (i.e. starting context)
         inputs = self.tokenizer.encode(prompt)
-        assert len(inputs) < 80, "Prompt is too long (should be < 80 tokens)"
-        phrase = inputs + [49407] * (80 - len(inputs))
+        assert len(inputs) < 77, "Prompt is too long (should be < 77 tokens)"
+        phrase = inputs + [49407] * (77 - len(inputs))
         phrase = np.array(phrase)[None].astype("int32")
         phrase = np.repeat(phrase, batch_size, axis=0)
 
         # Encode prompt tokens (and their positions) into a "context vector"
-        pos_ids = np.array(list(range(80)))[None].astype("int32")
+        pos_ids = np.array(list(range(77)))[None].astype("int32")
         pos_ids = np.repeat(pos_ids, batch_size, axis=0)
         context = self.text_encoder.predict_on_batch([phrase, pos_ids])
 

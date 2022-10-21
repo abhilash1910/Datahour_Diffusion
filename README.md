@@ -1,4 +1,20 @@
-# Stable Diffusion in TensorFlow / Keras
+# Diffusion Principles
+
+<img src="https://lilianweng.github.io/posts/2021-07-11-diffusion-models/generative-overview.png">
+
+Diffusion models are inspired by non-equilibrium thermodynamics. They define a Markov chain of diffusion steps to slowly add random noise to data and then learn to reverse the diffusion process to construct desired data samples from the noise. Unlike VAE or flow models, diffusion models are learned with a fixed procedure and the latent variable has high dimensionality (same as the original data). The concept of diffusion was first used by [Sohl etal](https://arxiv.org/abs/1503.03585)
+
+In a bit more detail for images, the set-up consists of 2 processes:
+
+a fixed (or predefined) forward diffusion process qq of our choosing, that gradually adds Gaussian noise to an image, until you end up with pure noise
+a learned reverse denoising diffusion process p_\thetap
+θ
+​
+ , where a neural network is trained to gradually denoise an image starting from pure noise, until you end up with an actual image.
+
+
+
+## Stable Diffusion in TensorFlow / Keras
 
 A Keras / Tensorflow implementation of Stable Diffusion.
 
@@ -26,7 +42,7 @@ pip install git+https://github.com/fchollet/stable-diffusion-tensorflow
 from stable_diffusion_tf.stable_diffusion import Text2Image
 from PIL import Image
 
-generator = Text2Image( 
+generator = Text2Image(
     img_height=512,
     img_width=512,
     jit_compile=False,
@@ -41,7 +57,7 @@ img = generator.generate(
 Image.fromarray(img[0]).save("output.png")
 ```
 
-## Example outputs 
+## Example outputs
 
 The following outputs have been generated using the this implementation:
 
