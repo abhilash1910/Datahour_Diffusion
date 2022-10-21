@@ -6,11 +6,16 @@ Diffusion models are inspired by non-equilibrium thermodynamics. They define a M
 
 In a bit more detail for images, the set-up consists of 2 processes:
 
-a fixed (or predefined) forward diffusion process qq of our choosing, that gradually adds Gaussian noise to an image, until you end up with pure noise
-a learned reverse denoising diffusion process p_\thetap
-θ
-​
- , where a neural network is trained to gradually denoise an image starting from pure noise, until you end up with an actual image.
+1. A fixed (or predefined) forward diffusion process q of our choosing, that gradually adds Gaussian noise to an image, until you end up with pure noise
+
+2. A learned reverse denoising diffusion process pθ , where a neural network is trained to gradually denoise an image starting from pure noise, until you end up with an actual image.
+
+<img src="https://huggingface.co/blog/assets/78_annotated-diffusion/diffusion_figure.png">
+
+[Diffusion blog using PT from HF](https://huggingface.co/blog/annotated-diffusion)
+
+
+
 
 
 
@@ -18,13 +23,13 @@ a learned reverse denoising diffusion process p_\thetap
 
 A Keras / Tensorflow implementation of Stable Diffusion.
 
-This is a fork of [stable-diffusion-tensorflow](https://github.com/divamgupta/stable-diffusion-tensorflow)
-created by @divamgupta. The weights were ported from the original implementation.
+This is a fork of [stable-diffusion-tensorflow](https://github.com/fchollet/stable-diffusion-tensorflow)
+created by @Fchollet. The weights were ported from the original implementation.
 
 
 ## Usage
 
-1) Try it out with [this GPU Colab](https://colab.research.google.com/drive/1zVTa4mLeM_w44WaFwl7utTaa6JcaH1zK).
+1) Try it out with [this GPU Colab](https://colab.research.google.com/drive/1Nl4Z1WFKnw0FvbS0jFGYNsD4phFZNCZ_?usp=sharing).
 
 2) Using the command line :
 
@@ -35,7 +40,7 @@ python text2image.py --prompt="An astronaut riding a horse"
 3) Using the python interface:
 
 ```
-pip install git+https://github.com/fchollet/stable-diffusion-tensorflow
+pip install git+https://github.com/abhilash1910/Datahour_Diffusion
 ```
 
 ```python
