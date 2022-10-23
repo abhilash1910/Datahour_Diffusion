@@ -44,7 +44,7 @@ pip install git+https://github.com/abhilash1910/Datahour_Diffusion
 ```
 
 ```python
-from stable_diffusion_tf.stable_diffusion import Text2Image
+from diffusion_tf.stable_diffusion import Text2Image
 from PIL import Image
 
 generator = Text2Image(
