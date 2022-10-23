@@ -12,7 +12,8 @@ parser.add_argument(
     "--prompt",
     type=str,
     nargs="?",
-    default="a painting of a virus monster playing guitar",
+    #default="a painting of a virus monster playing guitar",
+    default="world war 2  in realist art , artstation art ",
     help="the prompt to render",
 )
 
@@ -46,7 +47,7 @@ parser.add_argument(
 )
 
 parser.add_argument(
-    "--steps", type=int, default=50, help="number of ddim sampling steps"
+    "--steps", type=int, default=20, help="number of ddim sampling steps"
 )
 
 parser.add_argument(

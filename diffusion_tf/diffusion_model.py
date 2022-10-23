@@ -34,6 +34,45 @@ class ResBlock(tf.keras.layers.Layer):
         ret = self.skip_connection(x) + h
         return ret
 
+class LinearAttention(tf.keras.layers.Layer):
+    def __init__(self,n_heads,d_head):
+        super().__init__()
+        self.to_q=tf.keras.layers.Dense(n_heads*d_head,use_bias=False)
+        self.to_k=tf.keras.layers.Dense(n_heads*d_head,use_bias=False)
+        self.to_v=tf.keras.layers.Dense(n_heads*d_head,use_bias=False)
+        self.scale=d_head**-0.5
+        self.num_heads=n_heads
+        self.head_size=d_head
+        self.to_out=[tf.keras.layers.Dense(n_heads*d_head)]
+
+    def call(self,inputs):
+        assert type(inputs) is list
+        #padded to meet edge cases
+        if len(inputs)==1:
+            inputs+=[None]
+        x,context = inputs
+        context = x if context is None else context
+        q, k, v = self.to_q(x),self.to_k(context),self.to_v(context)
+        assert len(x.shape)==3
+        q = tf.reshape(q, (-1, x.shape[1], self.num_heads, self.head_size))
+        k = tf.reshape(k, (-1, context.shape[1], self.num_heads, self.head_size))
+        v = tf.reshape(v, (-1, context.shape[1], self.num_heads, self.head_size))
+
+        q = tf.keras.layers.Permute((2, 1, 3))(q)  # (bs, num_heads, time, head_size)
+        k = tf.keras.layers.Permute((2, 3, 1))(k)  # (bs, num_heads, head_size, time)
+        v = tf.keras.layers.Permute((2, 1, 3))(v)  # (bs, num_heads, time, head_size)
+
+        q = q * self.scale
+        weights = td_dot(k, v) # (bs, num_heads, head_size, head_size)
+        weights = tf.keras.activations.softmax(weights)
+        attention = td_dot(q , weights) # (bs, num_heads, time, head_size)
+        attention = tf.keras.layers.Permute((2, 1, 3))(attention) # (bs, time, num_heads, head_size)
+        h_ = tf.reshape(attention, (-1, x.shape[1], self.num_heads * self.head_size))
+        return apply_seq(h_, self.to_out)
+
+
+
+
 
 class CrossAttention(tf.keras.layers.Layer):
     def __init__(self, n_heads, d_head):
@@ -80,6 +119,9 @@ class BasicTransformerBlock(tf.keras.layers.Layer):
 
         self.norm2 = tf.keras.layers.LayerNormalization(epsilon=1e-5)
         self.attn2 = CrossAttention(n_heads, d_head)
+
+        #self.norm2 = tf.keras.layers.LayerNormalization(epsilon=1e-5)
+        #self.attn2 = LinearAttention(n_heads, d_head)
 
         self.norm3 = tf.keras.layers.LayerNormalization(epsilon=1e-5)
         self.geglu = GEGLU(dim * 4)
