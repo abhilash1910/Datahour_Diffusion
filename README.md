@@ -85,7 +85,8 @@ The following outputs have been generated using the this implementation:
 
 <img src="https://github.com/lucidrains/linear-attention-transformer/blob/master/linear-attention.png?raw=true">
 
- Attention mechanism that mixes (QKᵀ)V local attention with Q(KᵀV) global attention (scales linearly with respect to sequence length) for efficient long-range language modeling. Linear attention scales linearly with time and hence avoids the quadratic runtime complexity of the local cross attention mechanism. Linear attention code adapted from  [Phil Wang's  torch implementation](https://github.com/lucidrains/linear-attention-transformer) . Can be abstracted as a separate tf.keras.layers.Layer (keras layer) as well.
+ Attention mechanism that mixes (QKᵀ)V local attention with Q(KᵀV) global attention (scales linearly with respect to sequence length) for efficient long-range language modeling. Linear attention scales linearly with time and hence avoids the quadratic runtime complexity of the local cross attention mechanism. The code for the LinearAttention class (keras.layer) can be found inside [diffusion_model.py](https://github.com/abhilash1910/Datahour_Diffusion/blob/9ed0be57a86b70dad346d3af02a710569e6d823d/diffusion_tf/diffusion_model.py#L37)
+ Linear attention code adapted from  [Phil Wang's  torch implementation](https://github.com/lucidrains/linear-attention-transformer) . Can be abstracted as a separate tf.keras.layers.Layer (keras layer) as well.
 
 ## References
 
