@@ -1,5 +1,9 @@
 # Diffusion Principles
 
+Session for [Analytics Vidhya Datahour](https://datahack.analyticsvidhya.com/contest/datahour-diffusion-models-for-generative-arts/?utm_source=social&utm_medium=twitter&utm_campaign=datahour) on Diffusion principles. 
+
+Youtube recording of the session- https://www.youtube.com/watch?v=DIdbsfzK7IU 
+
 <img src="https://lilianweng.github.io/posts/2021-07-11-diffusion-models/generative-overview.png">
 
 Diffusion models are inspired by non-equilibrium thermodynamics. They define a Markov chain of diffusion steps to slowly add random noise to data and then learn to reverse the diffusion process to construct desired data samples from the noise. Unlike VAE or flow models, diffusion models are learned with a fixed procedure and the latent variable has high dimensionality (same as the original data). The concept of diffusion was first used by [Sohl etal](https://arxiv.org/abs/1503.03585)
