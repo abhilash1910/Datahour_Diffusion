@@ -18,7 +18,7 @@ In a bit more detail for images, the set-up consists of 2 processes:
 
 [Diffusion blog using PT from HF](https://huggingface.co/blog/annotated-diffusion)
 
-
+<img src="https://jalammar.github.io/images/stable-diffusion/article-Figure3-1-1536x762.png">
 
 
 
